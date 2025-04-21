@@ -7,8 +7,36 @@ interface BadgeProgressProps {
 }
 
 export const BadgeProgress: React.FC<BadgeProgressProps> = ({ type }) => {
-  const progress = useGamificationStore(state => state.getProgressToNextBadge(type))
-  const percentage = Math.min((progress.current / progress.required) * 100, 100)
+  // Use useMemo to prevent unnecessary recalculations and add error handling
+  const progress = React.useMemo(() => {
+    try {
+      return useGamificationStore.getState().getProgressToNextBadge(type);
+    } catch (error) {
+      console.error(`Error getting progress for badge type ${type}:`, error);
+      return {
+        current: 0,
+        required: 100,
+        badge: {
+          name: 'Badge',
+          description: 'Complete tasks to earn this badge',
+          icon: '⭐'
+        }
+      };
+    }
+  }, [type]);
+
+  // Safely calculate percentage with error handling
+  const percentage = React.useMemo(() => {
+    try {
+      if (!progress || typeof progress.current !== 'number' || typeof progress.required !== 'number' || progress.required === 0) {
+        return 0;
+      }
+      return Math.min((progress.current / progress.required) * 100, 100);
+    } catch (error) {
+      console.error('Error calculating percentage:', error);
+      return 0;
+    }
+  }, [progress])
 
   return (
     <div className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-sm rounded-xl p-4">

@@ -4,9 +4,33 @@ import { Trophy, Award, Zap, Star } from 'lucide-react'
 import { useGamificationStore } from '../../store/gamificationStore'
 
 export const ProfileProgress: React.FC = () => {
-  const taskmasterProgress = useGamificationStore(state => state.getProgressToNextBadge('tasks'))
-  const pointCollectorProgress = useGamificationStore(state => state.getProgressToNextBadge('points'))
-  const streakProgress = useGamificationStore(state => state.getProgressToNextBadge('streak'))
+  // Use React.useMemo to prevent unnecessary recalculations
+  const taskmasterProgress = React.useMemo(() => {
+    try {
+      return useGamificationStore.getState().getProgressToNextBadge('tasks');
+    } catch (error) {
+      console.error('Error getting taskmaster progress:', error);
+      return { current: 0, required: 50, badge: { name: 'Taskmaster', description: 'Complete tasks to earn this badge', icon: '🏆' } };
+    }
+  }, []);
+
+  const pointCollectorProgress = React.useMemo(() => {
+    try {
+      return useGamificationStore.getState().getProgressToNextBadge('points');
+    } catch (error) {
+      console.error('Error getting point collector progress:', error);
+      return { current: 0, required: 1000, badge: { name: 'Point Collector', description: 'Earn points from completing tasks', icon: '⭐' } };
+    }
+  }, []);
+
+  const streakProgress = React.useMemo(() => {
+    try {
+      return useGamificationStore.getState().getProgressToNextBadge('streak');
+    } catch (error) {
+      console.error('Error getting streak progress:', error);
+      return { current: 0, required: 7, badge: { name: 'Streak Champion', description: 'Maintain your daily streak', icon: '🔥' } };
+    }
+  }, []);
 
   const badges = [
     {
@@ -47,11 +71,22 @@ export const ProfileProgress: React.FC = () => {
           View All
         </button>
       </div>
-      
+
       <div className="grid grid-cols-1 tablet:grid-cols-3 gap-6">
         {badges.map((badge, index) => {
-          const percentage = (badge.progress.current / badge.progress.required) * 100
-          
+          // Safely calculate percentage with error handling
+          const percentage = React.useMemo(() => {
+            try {
+              if (!badge.progress || typeof badge.progress.current !== 'number' || typeof badge.progress.required !== 'number' || badge.progress.required === 0) {
+                return 0;
+              }
+              return Math.min((badge.progress.current / badge.progress.required) * 100, 100);
+            } catch (error) {
+              console.error('Error calculating percentage:', error);
+              return 0;
+            }
+          }, [badge.progress]);
+
           return (
             <motion.div
               key={badge.name}
@@ -63,7 +98,7 @@ export const ProfileProgress: React.FC = () => {
             >
               {/* Background Gradient */}
               <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-5 transition-opacity duration-300" />
-              
+
               <div className="relative">
                 <div className="flex items-center gap-4 mb-4">
                   <motion.div
@@ -77,7 +112,7 @@ export const ProfileProgress: React.FC = () => {
                     <p className="text-sm text-text-secondary-light">{badge.description}</p>
                   </div>
                 </div>
-                
+
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-text-secondary-light">Progress</span>
