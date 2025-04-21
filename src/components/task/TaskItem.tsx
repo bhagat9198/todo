@@ -26,7 +26,7 @@ const TaskItemComponent: React.FC<TaskItemProps> = ({
     if (onInfoClick) {
       onInfoClick(task)
     } else {
-      navigate(`/task/${task.id}`)
+      navigate(`/dashboard/task/${task.id}`)
     }
   }, [task, onInfoClick, navigate])
 

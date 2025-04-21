@@ -52,7 +52,7 @@ export const Dashboard: React.FC = () => {
           </p>
           <div className="flex items-center justify-center gap-4 mt-4">
             <motion.button
-              onClick={() => navigate('/history')}
+              onClick={() => navigate('/dashboard/history')}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-dark-card/80 rounded-lg shadow-sm hover:shadow-md transition-all"
@@ -61,7 +61,7 @@ export const Dashboard: React.FC = () => {
               <span>View History</span>
             </motion.button>
             <motion.button
-              onClick={() => navigate('/categories')}
+              onClick={() => navigate('/dashboard/categories')}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-dark-card/80 rounded-lg shadow-sm hover:shadow-md transition-all"

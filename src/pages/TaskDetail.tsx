@@ -93,7 +93,7 @@ export const TaskDetail: React.FC = () => {
   const handleDelete = useCallback(() => {
     if (!isNewTask) {
       deleteTask(id!)
-      navigate('/')
+      navigate('/dashboard')
     }
   }, [id, isNewTask, deleteTask, navigate])
 
@@ -123,7 +123,7 @@ export const TaskDetail: React.FC = () => {
           <div className="flex flex-col">
             <div className="px-6 py-4 flex items-center justify-between">
               <button
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/dashboard')}
                 className="flex items-center gap-2 text-text-secondary-light hover:text-primary transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />

@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
         </motion.h1>
         <div className="flex items-center gap-6">
           <Link 
-            to="/history"
+            to="/dashboard/history"
             className={`text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-light transition-colors ${
               location.pathname === '/history' ? 'text-primary dark:text-primary-light' : ''
             }`}
@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
             <History className="w-5 h-5" />
           </Link>
           <Link 
-            to="/categories"
+            to="/dashboard/categories"
             className={`text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-light transition-colors ${
               location.pathname === '/categories' ? 'text-primary dark:text-primary-light' : ''
             }`}
@@ -36,7 +36,7 @@ export const Header: React.FC = () => {
             <FolderOpen className="w-5 h-5" />
           </Link>
           <Link 
-            to="/profile"
+            to="/dashboard/profile"
             className={`text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-light transition-colors ${
               location.pathname === '/profile' ? 'text-primary dark:text-primary-light' : ''
             }`}
@@ -62,13 +62,13 @@ export const Header: React.FC = () => {
           >
             <Bell className="w-5 h-5" />
           </motion.button>
-          <motion.button
+          {/* <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             className="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-light transition-colors"
           >
             <Menu className="w-5 h-5" />
-          </motion.button>
+          </motion.button> */}
         </div>
       </div>
     </header>

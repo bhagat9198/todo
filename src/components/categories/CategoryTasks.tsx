@@ -71,7 +71,7 @@ export const CategoryTasks: React.FC<CategoryTasksProps> = ({
   }
 
   const handleAddTask = () => {
-    navigate('/task/new', { 
+    navigate('/dashboard/task/new', { 
       state: { 
         category: selectedCategory?.id 
       }
@@ -174,7 +174,7 @@ export const CategoryTasks: React.FC<CategoryTasksProps> = ({
                             <div className="flex-1 py-2 pr-2">
                               <TaskItem
                                 task={task}
-                                onInfoClick={() => navigate(`/task/${task.id}`)}
+                                onInfoClick={() => navigate(`/dashboard/task/${task.id}`)}
                                 compact={true}
                               />
                             </div>
